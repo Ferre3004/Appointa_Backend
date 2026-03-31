@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Elementos de la solución/">
+    <File Path="Dockerfile" />
+  </Folder>
   <Project Path="Agendamiento.Api/Agendamiento.Api.csproj" />
   <Project Path="Agendamiento.Data/Agendamiento.Data.csproj" />
   <Project Path="Agendamiento.Service/Agendamiento.Service.csproj" />
