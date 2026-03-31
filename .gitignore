@@ -1,0 +1,12 @@
+﻿################################################################################
+# Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
+################################################################################
+
+*.v2
+/agendamiento_dev/Agendamiento/.vs/Agendamiento.slnx/v17
+/agendamiento_dev/Agendamiento/.vs/Agendamiento.slnx/FileContentIndex
+/agendamiento_dev/Agendamiento/.vs/Agendamiento.slnx/v18
+/agendamiento_dev/Agendamiento/.vs/ProjectEvaluation
+/agendamiento_dev/Agendamiento/Agendamiento.Api/bin/Debug/net10.0
+/agendamiento_dev/Agendamiento/Agendamiento.Api/obj
+/agendamiento_dev/Agendamiento/Agendamiento.Data
