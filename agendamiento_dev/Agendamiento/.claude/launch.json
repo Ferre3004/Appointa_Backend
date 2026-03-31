@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Agendamiento API (HTTP)",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--project", "Agendamiento.Api/Agendamiento.Api.csproj", "--launch-profile", "http"],
+      "port": 5279
+    },
+    {
+      "name": "Agendamiento API (HTTPS)",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--project", "Agendamiento.Api/Agendamiento.Api.csproj", "--launch-profile", "https"],
+      "port": 7019
+    }
+  ]
+}
