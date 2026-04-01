@@ -66,7 +66,10 @@ builder.Services.AddSwaggerGen(opt =>
 // CORS — para que Angular pueda llamar al API en desarrollo
 builder.Services.AddCors(opt =>
     opt.AddPolicy("DevCors", policy =>
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins(
+    "http://localhost:4200",
+    "https://appointabackend-production.up.railway.app/"
+)
               .AllowAnyMethod()
               .AllowAnyHeader()));
 
