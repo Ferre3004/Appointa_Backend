@@ -67,11 +67,13 @@ builder.Services.AddSwaggerGen(opt =>
 builder.Services.AddCors(opt =>
     opt.AddPolicy("DevCors", policy =>
         policy.WithOrigins(
-    "http://localhost:4200",
-    "https://appointabackend-production.up.railway.app/"
-)
-              .AllowAnyMethod()
-              .AllowAnyHeader()));
+            "http://localhost:4200",
+            "https://appointa-frontend.vercel.app",
+            "https://prenotare.pro",
+            "https://www.prenotare.pro"
+        )
+        .AllowAnyMethod()
+        .AllowAnyHeader()));
 
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<BookingService>();
