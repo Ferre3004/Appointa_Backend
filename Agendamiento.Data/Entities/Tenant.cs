@@ -16,6 +16,13 @@ public class Tenant
     public string? FotoPortada { get; set; }
     public DateTime CreadoEn { get; set; } = DateTime.UtcNow;
 
+    // ── Suscripción LemonSqueezy ──────────────────────────
+    public string? PlanNombre { get; set; }
+    public string? LemonSqueezySubscriptionId { get; set; }
+    public string? LemonSqueezyCustomerId { get; set; }
+    public string? SuscripcionEstado { get; set; }
+    public DateTime? SuscripcionVence { get; set; }
+
     public ICollection<Usuario> Usuarios { get; set; } = [];
     public ICollection<Profesional> Profesionales { get; set; } = [];
     public ICollection<Servicio> Servicios { get; set; } = [];

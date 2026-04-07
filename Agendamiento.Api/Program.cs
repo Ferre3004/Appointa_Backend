@@ -79,6 +79,8 @@ builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<BookingService>();
 builder.Services.AddScoped<ReservaAdminService>();
 builder.Services.AddScoped<ConfigService>();
+builder.Services.AddHttpClient<LemonSqueezyService>();
+builder.Services.AddScoped<LemonSqueezyService>();
 // Hangfire
 // Después — connection string directo, más compatible
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
