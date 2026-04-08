@@ -11,6 +11,7 @@ public class LoginResponse
     public string Token { get; set; } = null!;
     public string Nombre { get; set; } = null!;
     public string Rol { get; set; } = null!;
+    public string? SuscripcionEstado { get; set; }
 }
 public class RegistroRequest
 {

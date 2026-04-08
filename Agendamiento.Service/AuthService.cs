@@ -42,7 +42,8 @@ public class AuthService(AppDbContext db, IConfiguration config)
         {
             Token = new JwtSecurityTokenHandler().WriteToken(token),
             Nombre = usuario.Nombre,
-            Rol = usuario.Rol
+            Rol = usuario.Rol,
+            SuscripcionEstado = usuario.Tenant?.SuscripcionEstado
         };
     }
     public async Task<(RegistroResponse? result, string? error)> RegistrarAsync(RegistroRequest req)
