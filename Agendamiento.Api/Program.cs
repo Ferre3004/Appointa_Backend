@@ -1,3 +1,4 @@
+using Agendamiento.Api.Middleware;
 using Agendamiento.Data;
 using Agendamiento.Service;
 using Hangfire;
@@ -92,7 +93,11 @@ builder.Services.AddHangfire(cfg => cfg
 
 builder.Services.AddHangfireServer();
 builder.Services.AddScoped<RecordatorioJob>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 var app = builder.Build();
+
+app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
 {

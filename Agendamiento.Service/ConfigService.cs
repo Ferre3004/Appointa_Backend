@@ -56,9 +56,9 @@ public class ConfigService(AppDbContext db)
 
     public async Task<bool> EliminarServicioAsync(int tenantId, int id)
     {
-        var s = await db.Servicios.FirstOrDefaultAsync(x => x.Id == id && x.TenantId == tenantId);
+        var s = await db.Servicios.FirstOrDefaultAsync(x => x.Id == id && x.TenantId == tenantId && x.Activo);
         if (s is null) return false;
-        s.Activo = !s.Activo;
+        s.Activo = false;
         await db.SaveChangesAsync();
         return true;
     }
@@ -110,9 +110,9 @@ public class ConfigService(AppDbContext db)
 
     public async Task<bool> EliminarProfesionalAsync(int tenantId, int id)
     {
-        var p = await db.Profesionales.FirstOrDefaultAsync(x => x.Id == id && x.TenantId == tenantId);
+        var p = await db.Profesionales.FirstOrDefaultAsync(x => x.Id == id && x.TenantId == tenantId && x.Activo);
         if (p is null) return false;
-        p.Activo = !p.Activo;
+        p.Activo = false;
         await db.SaveChangesAsync();
         return true;
     }
@@ -163,11 +163,45 @@ public class ConfigService(AppDbContext db)
         };
     }
 
+    public async Task<DisponibilidadDto?> EditarDisponibilidadAsync(int tenantId, int id, DisponibilidadRequest req)
+    {
+        var horaInicio = TimeOnly.Parse(req.HoraInicio);
+        var horaFin = TimeOnly.Parse(req.HoraFin);
+        if (horaFin <= horaInicio)
+            throw new ArgumentException("HoraFin debe ser posterior a HoraInicio");
+
+        var prof = await db.Profesionales
+            .FirstOrDefaultAsync(p => p.Id == req.ProfesionalId && p.TenantId == tenantId);
+        if (prof is null) return null;
+
+        var d = await db.Disponibilidades
+            .Include(x => x.Profesional)
+            .FirstOrDefaultAsync(x => x.Id == id && x.Profesional.TenantId == tenantId && x.Activo);
+        if (d is null) return null;
+
+        d.ProfesionalId = req.ProfesionalId;
+        d.DiaSemana = req.DiaSemana;
+        d.HoraInicio = horaInicio;
+        d.HoraFin = horaFin;
+        await db.SaveChangesAsync();
+
+        return new DisponibilidadDto
+        {
+            Id = d.Id,
+            ProfesionalId = d.ProfesionalId,
+            Profesional = prof.Nombre,
+            DiaSemana = d.DiaSemana,
+            DiaNombre = Dias[d.DiaSemana],
+            HoraInicio = d.HoraInicio.ToString("HH:mm"),
+            HoraFin = d.HoraFin.ToString("HH:mm")
+        };
+    }
+
     public async Task<bool> EliminarDisponibilidadAsync(int tenantId, int id)
     {
         var d = await db.Disponibilidades
             .Include(x => x.Profesional)
-            .FirstOrDefaultAsync(x => x.Id == id && x.Profesional.TenantId == tenantId);
+            .FirstOrDefaultAsync(x => x.Id == id && x.Profesional.TenantId == tenantId && x.Activo);
         if (d is null) return false;
         d.Activo = false;
         await db.SaveChangesAsync();

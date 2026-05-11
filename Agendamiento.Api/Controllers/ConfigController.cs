@@ -59,6 +59,13 @@ public class ConfigController(ConfigService svc) : ControllerBase
         return result is null ? BadRequest("Profesional inválido") : Ok(result);
     }
 
+    [HttpPut("disponibilidad/{id}")]
+    public async Task<IActionResult> EditarDisponibilidad(int id, DisponibilidadRequest req)
+    {
+        var result = await svc.EditarDisponibilidadAsync(TenantId, id, req);
+        return result is null ? NotFound() : Ok(result);
+    }
+
     [HttpDelete("disponibilidad/{id}")]
     public async Task<IActionResult> EliminarDisponibilidad(int id)
         => await svc.EliminarDisponibilidadAsync(TenantId, id) ? NoContent() : NotFound();

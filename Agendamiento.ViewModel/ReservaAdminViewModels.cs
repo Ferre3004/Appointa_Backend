@@ -1,4 +1,6 @@
-﻿namespace Agendamiento.ViewModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace Agendamiento.ViewModel;
 
 public class ReservaAdminDto
 {
@@ -16,5 +18,17 @@ public class ReservaAdminDto
 
 public class CambiarEstadoRequest
 {
-    public string Estado { get; set; } = null!; // Confirmada | Cancelada | Completada
+    [Required(ErrorMessage = "El estado es requerido")]
+    [RegularExpression("^(Confirmada|Cancelada|Completada|Pendiente)$",
+        ErrorMessage = "Estado debe ser: Confirmada, Cancelada, Completada o Pendiente")]
+    public string Estado { get; set; } = null!;
+}
+
+public class PagedResult<T>
+{
+    public List<T> Items { get; set; } = [];
+    public int Total { get; set; }
+    public int Pagina { get; set; }
+    public int TamañoPagina { get; set; }
+    public int TotalPaginas => (int)Math.Ceiling((double)Total / TamañoPagina);
 }
